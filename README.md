@@ -1,3 +1,5 @@
+![jpeg](images/header.jpeg)
+
 # CS:GO Round Winner Classification
 > A simple tabular ML project based on a video game called Counter Strike: Global Offensive
 
@@ -44,12 +46,13 @@ plt.figure(figsize=(10,8))
 sns.countplot(x="map", hue="round_winner", data=df)
 plt.show()
 ```
-
+![png](images/round_win.png)
 ```python
 plt.figure(figsize=(10,8))
 ax = sns.barplot(x=df['round_winner'].unique(), y=df['round_winner'].value_counts())
 plt.show()
 ```
+![png](images/round_win_map.png)
 
 ### Data Preprocessing
 Let's **drop single-valued columns** (filled with only zeroes) from the dataset, which are mostly present in the one-hot encoded columns of the weapons. Since these guns are never used by each of the corresponding sides, removing them from these columns is reasonable for the occasion of this dataset.
@@ -87,6 +90,7 @@ X_pca = pca.fit_transform(X_scaled)
 component_names = [f"PC{i+1}" for i in range(X_pca.shape[1])]
 X_pca = pd.DataFrame(X_pca, columns=component_names)
 ```
+![png](images/pca.png)
 Unfortunately, the PCA results are quite underwhelming. When plotting the explained variance ratio of the Principal Components on a scree plot, almost all the features account for the same percentage of variation in the data. PC1, for example, only explains 9% of the variations in the dataset. Nevertheless, I tried integrating PCA by joining the values of PC1 (data points projected into the PC1 Eigenvector) into our dataset.
 
 I also **created features using the domain knowledge of the game**. Due to the aforementioned armor mechanics in CS:GO, I decided to create a binary-valued feature that tracks the presence of armor on each team. Therefore, `t_has_armor` will have a value of 1 when `t_armor` is greater than 0, likewise with `ct_has_armor`.
@@ -155,6 +159,7 @@ y_pred = rf_model.predict(X_test)
 evaluate(y_pred, y_test)
 ```
 ## Results
+![png](images/results.png)
 
 From the results, we can see that K-Means clustering and the `has_armor` feature produces each improves the accuracy, albeit only by a marginal scale, of the baseline model. Since both these features are presumably independent, integrating both of them into the data even improves the results even further to a high of 88.41% accuracy on the Random Forest Classifier.
 As expected, including PCA did not yield a more accurate model. The `advantage` feature, unfortunately, did not improve the Random Forest Classifier but did manage to significantly boost the performance of the Decision Tree Classifier.
