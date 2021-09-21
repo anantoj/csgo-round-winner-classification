@@ -7,6 +7,7 @@
 
 ### Data
 The dataset that is used in this project can be obtained from [Christian Lillelund's CS:GO Round Winner Classification](https://www.kaggle.com/christianlillelund/csgo-round-winner-classification) dataset, which is available on Kaggle. The dataset contains 122411 round snapshots gathered from professional-level CS:GO matches. The features present in the dataset are the remain- ing time in the round, the scores (or round wins) of each team, map, bomb plant status, total health of each team, armor statuses of each team, number of players alive on each team, the number of defuse kits of CTs, and one-hot encoded values for the weapons present in each team. Fortunately, the data was already preprocessed or cleaned by the author, hence why there are no missing values in the entirety of the dataset.
+
 ### Methods Used
 * Basic EDA
 * Data Preprocessing
@@ -167,5 +168,7 @@ As expected, including PCA did not yield a more accurate model. The `advantage` 
 
 ## Potential Improvements
 Unfortunately, 88.41% was the best result I can obtain from our experiments. I have attempted and tried different approaches to get a result of 90% but these never came to fruition. I have several hypotheses on why a higher accuracy model was not able to be created.
+
 Firstly, CS:GO, in its nature, is incredibly dynamic and unpredictable because its gameplay heavily emphasizes aim (or a player’s ability to shoot accurately) more than anything. The best CS:GO players in the world can, from time to time, "outplay" opponents and turn the tides of the round even with mediocre weapons due to their extraordinarily accurate aim. Even if a side seems to be winning, rounds can be virtually thrown at any second, which is why CS:GO matches are extremely entertaining to watch in the first place. One way to work around this problem is by tracking players’ performance such as accuracy or headshot percentage, which actually already exists in the current version of CS:GO.
+
 CS:GO rounds also rely on momentum to a great extent. In other words, events that happen in the past will have a direct influence on the present. For example, a side that has won five rounds in a row will usually have a much higher chance of winning the next round due to less mental pressure and, arguably, "hotter aim". The dataset, unfortunately, has no way of detecting this highly influential momentum in the game.
