@@ -91,6 +91,7 @@ component_names = [f"PC{i+1}" for i in range(X_pca.shape[1])]
 X_pca = pd.DataFrame(X_pca, columns=component_names)
 ```
 ![png](images/pca.png)
+
 Unfortunately, the PCA results are quite underwhelming. When plotting the explained variance ratio of the Principal Components on a scree plot, almost all the features account for the same percentage of variation in the data. PC1, for example, only explains 9% of the variations in the dataset. Nevertheless, I tried integrating PCA by joining the values of PC1 (data points projected into the PC1 Eigenvector) into our dataset.
 
 I also **created features using the domain knowledge of the game**. Due to the aforementioned armor mechanics in CS:GO, I decided to create a binary-valued feature that tracks the presence of armor on each team. Therefore, `t_has_armor` will have a value of 1 when `t_armor` is greater than 0, likewise with `ct_has_armor`.
