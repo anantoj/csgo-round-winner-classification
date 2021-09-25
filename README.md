@@ -27,7 +27,7 @@ Counter-Strike: Global Offensive, or CS:GO for short, is a tactical shooter game
 
 ## Domain Knowledge
 ### CS:GO and Its Objectives
-CS:GO is a tactical first-person shooter game where two teams battle to win a particular objective. It is usually played on a PC and can be downloaded via the Valve client. 10players are divided into two different teams, namely the Terrorist and Counter-Terrorist. They will be referred to as T and CT for the rest of the paper. Both will fight for a maximum of30 rounds and the first team to accumulate 16 round wins will be crowned the champion. After 15 rounds, the players in each team will be swapped to provide balance to the game.
+CS:GO is a tactical first-person shooter game where two teams battle to win a particular objective. It is usually played on a PC and can be downloaded via the Valve client. 10 players are divided into two different teams, namely the Terrorist and Counter-Terrorist. They will be referred to as T and CT for the rest of the paper. Both will fight for a maximum of30 rounds and the first team to accumulate 16 round wins will be crowned the champion. After 15 rounds, the players in each team will be swapped to provide balance to the game.
 
 The simplest objective that can be achieved to grant a round win is by eliminating the players on the opposing team. However, each side also has its own special objectives.Ts, for example, can plant a bomb at a designated bombsite in a map and wait for it to explode to get the round win. CTs can win the round in two other different ways: wait for the round timer to expire, or defuse a planted bomb. These intricate objectives naturally place the Ts as the “attackers” and CTs as the “defenders”. In other words, Ts will try to plant the bomb while CTs will try to stop them from doing so.
 
@@ -42,18 +42,24 @@ Having armor and a helmet can single-handedly be the difference between winning 
 
 ## Code
 ### Data Exploration
+Let us take a look if out target variable `round_winner` has a balanced set of labels
 ```python
 plt.figure(figsize=(10,8))
 sns.countplot(x="map", hue="round_winner", data=df)
 plt.show()
 ```
 ![png](images/round_win.png)
+Fortunately, the labels in our data are balanced.
+
+As mentioned perviously, some balance of certain maps in CS:GO are skewed towards a particular side. Let's see if bias is present in our data.
 ```python
 plt.figure(figsize=(10,8))
 ax = sns.barplot(x=df['round_winner'].unique(), y=df['round_winner'].value_counts())
 plt.show()
 ```
 ![png](images/round_win_map.png)
+
+It does seem like most of the maps are slightly unbalanced. De_dust2 and de_inferno, in particular, are incredibly T-sided according to our data. This fact, however, is not very surprising to players who are experienced in the game. Bombsites in de_dust2 are very easy to attack, while bombsites in de_inferno are often impossible to retake. On the other hand, de_overpass and de_mirage seems to be the only maps that are balanced. 
 
 ### Data Preprocessing
 Let's **drop single-valued columns** (filled with only zeroes) from the dataset, which are mostly present in the one-hot encoded columns of the weapons. Since these guns are never used by each of the corresponding sides, removing them from these columns is reasonable for the occasion of this dataset.
