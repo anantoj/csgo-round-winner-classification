@@ -49,6 +49,7 @@ sns.countplot(x="map", hue="round_winner", data=df)
 plt.show()
 ```
 ![png](images/round_win.png)
+
 Fortunately, the labels in our data are balanced.
 
 As mentioned perviously, some balance of certain maps in CS:GO are skewed towards a particular side. Let's see if bias is present in our data.
@@ -154,13 +155,14 @@ def evaluate(y_pred, y_test):
     plt.show()
 ```
 
-
 ```python
 dt_model = DecisionTreeClassifier(random_state=1)
 dt_model.fit(X_train,y_train)
 y_pred = dt_model.predict(X_test)
 evaluate(y_pred, y_test)
+```
 
+```python
 rf_model = RandomForestClassifier(random_state=1)
 rf_model.fit(X_train,y_train)
 y_pred = rf_model.predict(X_test)
